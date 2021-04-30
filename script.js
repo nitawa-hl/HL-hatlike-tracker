@@ -98,8 +98,14 @@ try {
             S[player].Sstart = numCards - S[player].Sset.filter(x => (x === Log.length || x === -1)).length + 1;
             S[player].HLslots.shift(); // Blindplaying the leftmost unclued card in S is not a hat-like play
         } else {
-            S[player].Sstart = numCards + 1;
-            S[player].HLslots = [2,3,4,5].slice(0, numCards - 1);
+            S[player].Sstart = 1;
+            S[player].HLslots = []
+            for (let i = 0; i < numCards; i++) {
+                if (!Hands[playerIndex].children[i]._card.cluedBorder.isVisible()) {
+                    S[player].HLslots.unshift(numCards - i);
+                }
+            }
+            S[player].HLslots.shift();
         }
     }
 
