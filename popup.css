@@ -1,0 +1,23 @@
+body{
+    width: 300px;
+    height:250px;
+    text-align:center;
+}
+
+table.greyGridTable {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+table.greyGridTable td, table.greyGridTable th {
+  padding: 3px 9px;
+}
+table.greyGridTable tbody td {
+  font-size: 13px;
+}
+
+table.greyGridTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}

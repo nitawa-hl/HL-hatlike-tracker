@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "HL hat-like extension",
+    "version": "1.0",
+    "content_scripts": [
+    {
+        "matches": [
+            "https://hanab.live/*"
+        ],
+        "js": ["content.js"]
+    }
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "page_action": {
+        "default_icon": "black-hat.png",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs",
+        "storage",
+        "https://hanab.live/*",
+        "webNavigation"
+    ],
+    "web_accessible_resources": ["script.js"]
+}
