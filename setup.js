@@ -5,10 +5,7 @@ function setupSocketWatch() {
       return function(event) {
         console.log(event);
         old_function(event);
-        if (event.data.startsWith('clock')) {
-          new_activity = true;
-        }
-        hat_main();
+        hat_main(event.data.startsWith('clock'));
       }
     })();
   } else {

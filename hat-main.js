@@ -1,7 +1,5 @@
 var turn_sound_last_played = -1;
-var new_activity = false;
-
-function hat_main() {
+function hat_main(new_activity) {
   try {
     var is_playing = window.globals.state.playing;
     var Players = Array.from(window.globals.metadata.playerNames);
@@ -15,9 +13,6 @@ function hat_main() {
       turn_sound_last_played = -1;
     }
     console.log("Socket", new_activity, "Game running", is_playing);
-    if (new_activity) {
-      new_activity = false;
-    }
   }
   catch (TypeError) {
     console.warn("Still waiting on a play");
@@ -140,6 +135,7 @@ function hat_main() {
   }
 
 
+  // Prepare message to emit to content.js
   msg = "";
   tbl = [];
   for (player of Players) {
@@ -149,17 +145,22 @@ function hat_main() {
   var Q = (latestHLP > latestClue);
   tbl.push(Q);
   msg += "Qstate: " + Q
-  var current_turn = window.globals.state.ongoingGame.turn.turnNum;
   // Also add on the turn of the current state
   tbl.push(state.turn.turnNum + 1);
+
+
+  // Decide whether to play the air horn
+  var ongoing_current_turn = window.globals.state.ongoingGame.turn.turnNum;
   var notify = (
-    (latestHLP == current_turn)
-    && (turn_sound_last_played != current_turn)
+    (latestHLP == ongoing_current_turn)
+    && (turn_sound_last_played != ongoing_current_turn)
     && is_playing
   );
   if (notify) {
-    turn_sound_last_played = current_turn;
+    turn_sound_last_played = ongoing_current_turn;
   }
+
+
   var update = !notify || (window.globals.state.visibleState === window.globals.state.ongoingGame);
   window.postMessage({
       type: "FROM_PAGE",
@@ -170,8 +171,5 @@ function hat_main() {
       latestHLP: latestHLP,
       update: update,
   }, "*");
-  if (new_activity) {
-    new_activity = false;
-  }
 }
 
