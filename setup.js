@@ -18,6 +18,7 @@ function setupStateWatch() {
     window.globals.store.subscribe(function() {
       hat_main(false);
     });
+    hat_main(false); // initialize
   } else {
     window.setTimeout(setupStateWatch, 100);
   }
