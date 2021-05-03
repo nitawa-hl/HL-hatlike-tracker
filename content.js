@@ -3,7 +3,7 @@ chrome.runtime.sendMessage({action: 'showPageAction'});
 chrome.runtime.onMessage.addListener(gotMessage);
 
 var main = document.createElement('script');
-main.src = chrome.runtime.getURL('hat-main.js ');
+main.src = chrome.runtime.getURL('hat-main.js');
 (document.head || document.documentElement).appendChild(main);
 
 function run_script(name) {

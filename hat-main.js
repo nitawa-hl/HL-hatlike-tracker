@@ -14,7 +14,7 @@ function hat_main() {
     if (!is_playing) {
       turn_sound_last_played = -1;
     }
-    console.log(new_activity, is_playing);
+    console.log("Socket", new_activity, "Game running", is_playing);
     if (new_activity) {
       new_activity = false;
     }
@@ -150,6 +150,8 @@ function hat_main() {
   tbl.push(Q);
   msg += "Qstate: " + Q
   var current_turn = window.globals.state.ongoingGame.turn.turnNum;
+  // Also add on the turn of the current state
+  tbl.push(state.turn.turnNum + 1);
   var notify = (
     (latestHLP == current_turn)
     && (turn_sound_last_played != current_turn)
