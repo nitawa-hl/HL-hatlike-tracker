@@ -31,6 +31,7 @@ window.addEventListener("message", (event) => {
     chrome.storage.local.set({'HLPstatus': event.data.data});
     if (event.data.notify) {
       var audio = new Audio(chrome.runtime.getURL("alert.mp3"));
+      audio.volume = 50;
       audio.play();
     }
     if (event.data.Qstate) {
