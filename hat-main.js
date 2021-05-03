@@ -12,7 +12,6 @@ function hat_main(new_activity) {
     if (!is_playing) {
       turn_sound_last_played = -1;
     }
-    console.log("Socket", new_activity, "Game running", is_playing);
   }
   catch (TypeError) {
     console.warn("Still waiting on a play");
@@ -73,7 +72,7 @@ function hat_main(new_activity) {
         var EntryList = Log[turn];
         var P = EntryList[0];
         if (P != player) {
-          console.log("Extension error");
+          console.error("Extension error");
         }
         var idxslot = EntryList.indexOf('slot')
         var slot = EntryList[idxslot + 1][1];

@@ -3,7 +3,6 @@ function setupSocketWatch() {
     window.globals2.conn.ws.onmessage = (function() {
       var old_function = window.globals2.conn.ws.onmessage;
       return function(event) {
-        console.log(event);
         old_function(event);
         hat_main(event.data.startsWith('clock'));
       }
