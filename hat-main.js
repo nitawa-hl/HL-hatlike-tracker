@@ -2,14 +2,15 @@ var turn_sound_last_played = -1;
 
 function hat_main(by_websocket) {
   try {
+    var is_playing = window.globals.state.playing;
     var Players = Array.from(window.globals.metadata.playerNames);
-    var state = (by_websocket && globals.metadata.state.playing)
+    var state = (by_websocket && is_playing)
       ? window.globals.state.ongoingGame
       : window.globals.state.visibleState;
     var Hands = Array.from(state.hands);
     var Log = Array.from(state.log);
     var Clues = Array.from(state.clues);
-    if (!window.globals.metadata.playing) {
+    if (!is_playing) {
       turn_sound_last_played = -1;
     }
   }
@@ -147,7 +148,7 @@ function hat_main(by_websocket) {
   var notify = (
     (latestHLP == current_turn)
     && (turn_sound_last_played != current_turn)
-    && window.globals.state.playing
+    && is_playing
   );
   if (notify) {
     turn_sound_last_played = current_turn;
