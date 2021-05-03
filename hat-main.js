@@ -133,6 +133,13 @@ function hat_main(new_activity) {
     }
   }
 
+  // Edge case: if player has no more turns left, quit early
+  for (player of Players) {
+    var playerIndex = Players.indexOf(player);
+    if (state.hands[playerIndex].length < numCards) {
+      S[player].HLslots = [];
+    }
+  }
 
   // Prepare message to emit to content.js
   msg = "";
