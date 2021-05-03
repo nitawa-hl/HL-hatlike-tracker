@@ -1,6 +1,5 @@
 This is a fork of [nitawa](https://github.com/nitawa-hl)'s
 hatlike tracker for [competitions on hanab.live](hanabi-competitions.com).
-Credits to nitawa for [implementing most of this](https://discord.com/channels/140016142600241152/712422871044980848/837774900169015428)!
 
 ## What are hatlike plays?
 
@@ -24,8 +23,9 @@ which has a signature of consecutive blind plays from arbitrary slots,
 while minimally impacting other types of conventions.
 In particular, hidden or layered finesses are not hatlike.
 
-The following conventions should mostly be okay,
-but maybe there will be situations where they occur subsequently to each other:
+The following [Hyphen-ated conventions](https://hanabi.github.io)
+should mostly be okay, but maybe there will be
+situations where they occur subsequently to each other:
 
 * Elimination blind plays
 * Trash push
@@ -47,7 +47,15 @@ so you don't have to keep track of it.
   This works during replays as well.
 * If you click on the hat icon, it shows which slots would cause a hatlike play.
 * While playing, an air horn sounds if a player makes a hatlike move.
+* The extension also draws a small hat under each hatlike slot.
 
 ## How do I use it?
 
 [Install as an unpacked chrome extension](https://webkul.com/blog/how-to-install-the-unpacked-extension-in-chrome/).
+
+## Credits
+
+Thanks to nitawa for [implementing most of this](https://discord.com/channels/140016142600241152/712422871044980848/837774900169015428)!
+
+Thanks to the hyphen-ated group for running [hanab.live](https://hanab.live)
+and the running the hanabi competitions.
