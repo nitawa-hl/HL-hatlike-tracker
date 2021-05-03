@@ -1,10 +1,21 @@
-function hat_main() {
-  try {
-      window.globals.elements.fullActionLog.refreshText(); // move all current log to smallHistory.
+var turn_sound_last_played = -1;
 
-      var Log = Array.from(window.globals.elements.fullActionLog.logText.smallHistory);
+function hat_main(by_websocket) {
+  window.globals.elements.fullActionLog.refreshText(); // move all current log to smallHistory.
+
       var Players = Array.from(window.globals.metadata.playerNames);
-      var Hands = Array.from(window.globals.elements.playerHands);
+      var state = (by_websocket && globals.metadata.state.playing)
+        ? window.globals.state.ongoingGame
+        : window.globals.state.visibleState;
+      var Hands = Array.from(state.hands);
+      var Log = Array.from(state.log);
+      var Clues = Array.from(state.clues);
+
+      var clued_cards = [];
+      for (let i=0; i<Clues.length; i++) {
+        clued_cards = clued_cards.concat(Clues[i].list);
+      }
+
       var S = {};
       var numPlayers = Players.length
       if (numPlayers == 2 || numPlayers == 3) {
@@ -19,11 +30,16 @@ function hat_main() {
           S[player] = {start:-1, Sset:null};
       };
 
+      // For each player, we locate the most recent turn they played
+      // if Alice played most recently on turn 7,
+      // e.g. S["alice"].start = 7
+      // and we then let S["alice"].Sset = [N,N,N...,N]
+      // where N is the current turn count
       var latestClue = 0
       for (let P = 0; P < numPlayers; P++) {
           found = false;
           for (let turn = Log.length - 1 - P; turn > 0 && !found; turn -= numPlayers) {
-              var entry = Log[turn];
+              var entry = Log[turn].text;
               var EntryList = entry.split(" ");
               if (EntryList[1] == "plays" || EntryList[1] == "fails") {
                   S[EntryList[0]].start = turn;
@@ -53,7 +69,7 @@ function hat_main() {
                   }
                   var idxslot = EntryList.indexOf('slot')
                   var slot = EntryList[idxslot + 1][1];
-                  
+
                   var Sslot = slot - played - 1;
                   if (Sslot > -1) { // played card is in S
                       var index = -1;
@@ -77,7 +93,7 @@ function hat_main() {
               var LTRslot = 0;
               for (let i = numCards - 1; i >= 0; i--) {
                   if (S[player].Sset[i] == Log.length) { // card is still on the hand of the player
-                      if (Hands[playerIndex].children[LTRslot]._card.cluedBorder.isVisible()) {
+                      if (clued_cards.includes(Hands[playerIndex][LTRslot])) {
                           S[player].Sset[i] = -1;
                       } else {
                           S[player].HLslots.unshift(numCards - LTRslot);
@@ -102,7 +118,7 @@ function hat_main() {
               S[player].Sstart = 1;
               S[player].HLslots = []
               for (let i = 0; i < numCards; i++) {
-                  if (!Hands[playerIndex].children[i]._card.cluedBorder.isVisible()) {
+                  if (!clued_cards.includes(Hands[playerIndex][i])) {
                       S[player].HLslots.unshift(numCards - i);
                   }
               }
@@ -120,8 +136,15 @@ function hat_main() {
       var Q = (latestHLP > latestClue);
       tbl.push(Q);
       msg += "Qstate: " + Q
-      var notify = (latestHLP == Log.length - 1) && (latestHLP != -1);
-      console.log(latestHLP, Q, Log.length, notify);
+      var current_turn = window.globals.state.ongoingGame.turn.turnNum;
+      var notify = (
+        (latestHLP == current_turn)
+        && (turn_sound_last_played != current_turn)
+        && window.globals.state.playing
+      );
+      if (notify) {
+        turn_sound_last_played = current_turn;
+      }
 
       window.postMessage({
           type: "FROM_PAGE",
@@ -131,8 +154,5 @@ function hat_main() {
           notify: notify,
           latestHLP: latestHLP,
       }, "*");
-  } catch (TypeError) {
-      console.log("Waiting for a play")
-  }
 }
 
