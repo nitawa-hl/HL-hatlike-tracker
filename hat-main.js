@@ -9,12 +9,13 @@ function hat_main(by_websocket) {
     var Hands = Array.from(state.hands);
     var Log = Array.from(state.log);
     var Clues = Array.from(state.clues);
+    if (!window.globals.metadata.playing) {
+      turn_sound_last_played = -1;
+    }
   }
   catch (TypeError) {
+    console.warn("Still waiting on a play");
     return;
-  }
-  if (!globals.metadata.state.playing) {
-    turn_sound_last_played = -1;
   }
 
   var clued_cards = [];
