@@ -159,8 +159,49 @@ function hat_main(new_activity) {
     turn_sound_last_played = ongoing_current_turn;
   }
 
-
+  // Decide whether to update the popup and icon
   var update = !notify || (window.globals.state.visibleState === window.globals.state.ongoingGame);
+
+  // Decide whether to draw hats on the cards
+  if (state === window.globals.state.visibleState) {
+    for (player of Players) {
+      var playerIndex = Players.indexOf(player);
+      let hand = window.globals.elements.playerHands[playerIndex].children;
+      for (var i=0; i<hand.length; i++) {
+        let hatlike = S[player].HLslots.includes(i+1);
+        let card = hand[hand.length - 1 - i]._card;
+        if (!card.hat) {
+          card.hat = new Konva.Text({
+            x:10,
+            y:card.height()+5,
+            text:"👒",
+            fontSize: 30,
+            visible: false}
+          );
+          card.add(card.hat);
+        }
+        if (hatlike && !card.hat.isVisible()) {
+          card.hat.show();
+          card.parent.getLayer().draw();
+        }
+        if (!hatlike && card.hat.isVisible()) {
+          card.hat.hide();
+          card.parent.getLayer().draw();
+        }
+      }
+    }
+  }
+  for (card_info of window.globals.state.visibleState.deck) {
+    if (typeof card_info.location !== "number") {
+      const card = window.globals.deck[card_info.order];
+      if (card.hat && card.hat.isVisible()) {
+        card.hat.hide();
+        card.parent.getLayer().draw();
+      }
+    }
+  }
+
+  // Post message to window
   window.postMessage({
       type: "FROM_PAGE",
       text: msg,
