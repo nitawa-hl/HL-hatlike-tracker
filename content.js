@@ -26,6 +26,10 @@ window.addEventListener("message", (event) => {
 
   if (event.data.type && (event.data.type == "FROM_PAGE")) {
     chrome.storage.local.set({'HLPstatus': event.data.data});
+    if (event.data.notify) {
+      var audio = new Audio(chrome.runtime.getURL("alert.mp3"));
+      audio.play();
+    }
     if (event.data.Qstate) {
         chrome.runtime.sendMessage({
             action: 'updateIcon',

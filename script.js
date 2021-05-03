@@ -116,16 +116,19 @@ try {
         msg += player + ": " + S[player].start + ", " + S[player].Sstart + "\n";
         tbl.push([player, S[player].start, S[player].Sstart, S[player].HLslots]);
     }
-
     var Q = (latestHLP > latestClue);
     tbl.push(Q);
     msg += "Qstate: " + Q
+    var notify = (latestHLP == Log.length - 1) && (latestHLP != -1);
+    console.log(latestHLP, Q, Log.length, notify);
 
     window.postMessage({
         type: "FROM_PAGE",
         text: msg,
         Qstate: Q,
-        data: tbl
+        data: tbl,
+        notify: notify,
+        latestHLP: latestHLP,
     }, "*");
 } catch (TypeError) {
     console.log("Waiting for a play")

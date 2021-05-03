@@ -24,5 +24,8 @@
         "https://hanab.live/*",
         "webNavigation"
     ],
-    "web_accessible_resources": ["script.js"]
+    "web_accessible_resources": [
+      "script.js",
+      "alert.mp3"
+    ]
 }
