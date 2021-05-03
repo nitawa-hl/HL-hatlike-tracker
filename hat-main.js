@@ -1,15 +1,21 @@
 var turn_sound_last_played = -1;
 
 function hat_main(by_websocket) {
-  window.globals.elements.fullActionLog.refreshText(); // move all current log to smallHistory.
-
-  var Players = Array.from(window.globals.metadata.playerNames);
-  var state = (by_websocket && globals.metadata.state.playing)
-    ? window.globals.state.ongoingGame
-    : window.globals.state.visibleState;
-  var Hands = Array.from(state.hands);
-  var Log = Array.from(state.log);
-  var Clues = Array.from(state.clues);
+  try {
+    var Players = Array.from(window.globals.metadata.playerNames);
+    var state = (by_websocket && globals.metadata.state.playing)
+      ? window.globals.state.ongoingGame
+      : window.globals.state.visibleState;
+    var Hands = Array.from(state.hands);
+    var Log = Array.from(state.log);
+    var Clues = Array.from(state.clues);
+  }
+  catch (TypeError) {
+    return;
+  }
+  if (!globals.metadata.state.playing) {
+    turn_sound_last_played = -1;
+  }
 
   var clued_cards = [];
   for (let i=0; i<Clues.length; i++) {
