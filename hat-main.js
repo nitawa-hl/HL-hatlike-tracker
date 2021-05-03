@@ -1,10 +1,11 @@
 var turn_sound_last_played = -1;
+var new_activity = false;
 
-function hat_main(by_websocket) {
+function hat_main() {
   try {
     var is_playing = window.globals.state.playing;
     var Players = Array.from(window.globals.metadata.playerNames);
-    var state = (by_websocket && is_playing)
+    var state = (new_activity && is_playing)
       ? window.globals.state.ongoingGame
       : window.globals.state.visibleState;
     var Hands = Array.from(state.hands);
@@ -12,6 +13,10 @@ function hat_main(by_websocket) {
     var Clues = Array.from(state.clues);
     if (!is_playing) {
       turn_sound_last_played = -1;
+    }
+    console.log(new_activity, is_playing);
+    if (new_activity) {
+      new_activity = false;
     }
   }
   catch (TypeError) {
@@ -153,15 +158,18 @@ function hat_main(by_websocket) {
   if (notify) {
     turn_sound_last_played = current_turn;
   }
-  if (!by_websocket) {
-    window.postMessage({
-        type: "FROM_PAGE",
-        text: msg,
-        Qstate: Q,
-        data: tbl,
-        notify: notify,
-        latestHLP: latestHLP,
-    }, "*");
+  var update = !notify || (window.globals.state.visibleState === window.globals.state.ongoingGame);
+  window.postMessage({
+      type: "FROM_PAGE",
+      text: msg,
+      Qstate: Q,
+      data: tbl,
+      notify: notify,
+      latestHLP: latestHLP,
+      update: update,
+  }, "*");
+  if (new_activity) {
+    new_activity = false;
   }
 }
 

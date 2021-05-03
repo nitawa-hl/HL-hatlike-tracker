@@ -31,19 +31,26 @@ window.addEventListener("message", (event) => {
     chrome.storage.local.set({'HLPstatus': event.data.data});
     if (event.data.notify) {
       var audio = new Audio(chrome.runtime.getURL("alert.mp3"));
-      audio.volume = 0.50;
-      audio.play();
+      audio.volume = 0.20;
+      var promise = audio.play();
+      if (promise !== undefined) {
+        promise.catch(function (error) {
+          alert("A hatlike play occured! We tried to play an air horn, but couldn't.");
+        });
+      }
     }
-    if (event.data.Qstate) {
-        chrome.runtime.sendMessage({
-            action: 'updateIcon',
-            value: false
-        });
-    } else {
-        chrome.runtime.sendMessage({
-            action: 'updateIcon',
-            value: true
-        });
+    if (event.data.update) {
+      if (event.data.Qstate) {
+          chrome.runtime.sendMessage({
+              action: 'updateIcon',
+              value: false
+          });
+      } else {
+          chrome.runtime.sendMessage({
+              action: 'updateIcon',
+              value: true
+          });
+      }
     }
   }
 }, false);

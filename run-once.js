@@ -1,1 +1,1 @@
-hat_main(false);
+hat_main();

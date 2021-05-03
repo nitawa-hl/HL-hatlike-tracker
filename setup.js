@@ -5,6 +5,9 @@ function setupSocketWatch() {
       return function(event) {
         console.log(event);
         old_function(event);
+        if (event.data.startsWith('clock')) {
+          new_activity = true;
+        }
         hat_main();
       }
     })();
@@ -16,9 +19,9 @@ function setupSocketWatch() {
 function setupStateWatch() {
   if (window.globals && window.globals.store) {
     window.globals.store.subscribe(function() {
-      hat_main(false);
+      hat_main();
     });
-    hat_main(false); // initialize
+    hat_main(); // initialize
   } else {
     window.setTimeout(setupStateWatch, 100);
   }
