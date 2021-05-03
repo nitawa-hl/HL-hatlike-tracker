@@ -1,15 +1,15 @@
 var turn_sound_last_played = -1;
 function hat_main(new_activity) {
   try {
-    var is_playing = window.globals.state.playing;
+    var is_active = !window.globals.state.finished;
     var Players = Array.from(window.globals.metadata.playerNames);
-    var state = (new_activity && is_playing)
+    var state = (new_activity && is_active)
       ? window.globals.state.ongoingGame
       : window.globals.state.visibleState;
     var Hands = Array.from(state.hands);
     var Log = Array.from(state.log);
     var Clues = Array.from(state.clues);
-    if (!is_playing) {
+    if (!is_active) {
       turn_sound_last_played = -1;
     }
   }
@@ -153,7 +153,7 @@ function hat_main(new_activity) {
   var notify = (
     (latestHLP == ongoing_current_turn)
     && (turn_sound_last_played != ongoing_current_turn)
-    && is_playing
+    && is_active
   );
   if (notify) {
     turn_sound_last_played = ongoing_current_turn;
