@@ -151,14 +151,15 @@ function hat_main(by_websocket) {
   if (notify) {
     turn_sound_last_played = current_turn;
   }
-
-  window.postMessage({
-      type: "FROM_PAGE",
-      text: msg,
-      Qstate: Q,
-      data: tbl,
-      notify: notify,
-      latestHLP: latestHLP,
-  }, "*");
+  if (!by_websocket) {
+    window.postMessage({
+        type: "FROM_PAGE",
+        text: msg,
+        Qstate: Q,
+        data: tbl,
+        notify: notify,
+        latestHLP: latestHLP,
+    }, "*");
+  }
 }
 
