@@ -5,7 +5,8 @@
     "content_scripts": [
     {
         "matches": [
-            "https://hanab.live/*"
+            "https://hanab.live/*",
+            "http://localhost:8008/*"
         ],
         "js": ["content.js"]
     }
