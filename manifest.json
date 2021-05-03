@@ -25,7 +25,9 @@
         "webNavigation"
     ],
     "web_accessible_resources": [
-      "script.js",
+      "setup.js",
+      "hat-main.js",
+      "run-once.js",
       "alert.mp3"
     ]
 }

@@ -2,23 +2,26 @@ chrome.runtime.sendMessage({action: 'showPageAction'});
 
 chrome.runtime.onMessage.addListener(gotMessage);
 
-var seconds = 1
-window.setInterval(run_script , seconds*1000);
+var main = document.createElement('script');
+main.src = chrome.runtime.getURL('hat-main.js ');
+(document.head || document.documentElement).appendChild(main);
 
-function gotMessage(message, sender, sendResponse) {
-    if (message.txt == 'run script') {
-        run_script();
-    }
-}
-
-function run_script() {
+function run_script(name) {
     var s = document.createElement('script');
-    s.src = chrome.runtime.getURL('script.js');
+    s.src = chrome.runtime.getURL(name);
     s.onload = function() {
         this.remove();
     };
     (document.head || document.documentElement).appendChild(s);
 }
+
+function gotMessage(message, sender, sendResponse) {
+    if (message.txt == 'run script') {
+        run_script('run-once.js');
+    }
+}
+
+run_script('setup.js');
 
 window.addEventListener("message", (event) => {
   if (event.source != window)
