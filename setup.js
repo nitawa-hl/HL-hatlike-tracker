@@ -7,7 +7,7 @@ function setupSocketWatch() {
         if (event.data.startsWith('clock')) {
           // Give the blind-play sound a bit of time before air horn
           window.setTimeout(function() {
-            hat_main(event.data.startsWith('clock'));
+            hat_main(true);
           }, 350);
         } else {
           hat_main();
