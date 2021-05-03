@@ -53,9 +53,11 @@ so you don't have to keep track of it.
 
 [Install as an unpacked chrome extension](https://webkul.com/blog/how-to-install-the-unpacked-extension-in-chrome/).
 
-## Credits
+## Credits and notes
 
 Thanks to nitawa for [implementing most of this](https://discord.com/channels/140016142600241152/712422871044980848/837774900169015428)!
 
 Thanks to the hyphen-ated group for running [hanab.live](https://hanab.live)
 and the running the hanabi competitions.
+
+The code I introduced is terrible. Bugfixes and pull requests welcome.
