@@ -166,11 +166,10 @@ function hat_main(new_activity) {
     turn_sound_last_played = ongoing_current_turn;
   }
 
-  // Decide whether to update the popup and icon
-  var update = !notify || (window.globals.state.visibleState === window.globals.state.ongoingGame);
-
-  // Decide whether to draw hats on the cards
-  if (state === window.globals.state.visibleState) {
+  // Decide whether to update icons and so on
+  var update = (state === window.globals.state.visibleState);
+  // Draw hats
+  if (update) {
     for (player of Players) {
       var playerIndex = Players.indexOf(player);
       let hand = window.globals.elements.playerHands[playerIndex].children;

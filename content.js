@@ -30,14 +30,16 @@ window.addEventListener("message", (event) => {
   if (event.data.type && (event.data.type == "FROM_PAGE")) {
     chrome.storage.local.set({'HLPstatus': event.data.data});
     if (event.data.notify) {
-      var audio = new Audio(chrome.runtime.getURL("alert.mp3"));
-      audio.volume = 0.20;
-      var promise = audio.play();
-      if (promise !== undefined) {
-        promise.catch(function (error) {
-          alert("A hatlike play occured! We tried to play an air horn, but couldn't.");
-        });
-      }
+      window.setTimeout(function() {
+        var audio = new Audio(chrome.runtime.getURL("alert.mp3"));
+        audio.volume = 0.20;
+        var promise = audio.play();
+        if (promise !== undefined) {
+          promise.catch(function (error) {
+            alert("A hatlike play occured! We tried to play an air horn, but couldn't.");
+          });
+        }
+      }, 100);
     }
     if (event.data.update) {
       if (event.data.Qstate) {

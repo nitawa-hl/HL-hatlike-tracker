@@ -5,10 +5,11 @@ function setupSocketWatch() {
       return function(event) {
         old_function(event);
         if (event.data.startsWith('clock')) {
-          // Give the blind-play sound a bit of time before air horn
+          // going to delay a few ms because I am worried about
+          // possible race condition against computing new state
           window.setTimeout(function() {
             hat_main(true);
-          }, 350);
+          }, 20);
         } else {
           hat_main();
         }
