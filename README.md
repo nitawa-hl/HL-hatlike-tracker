@@ -6,9 +6,7 @@ hatlike tracker for [hanabi competitions](https://hanabi-competitions.com).
 In games with four or more players, there are so-called
 [hat-guessing strategies](https://github.com/hanabi/hanabi.github.io/blob/main/misc/hat-guessing.md)
 which are considered game-breaking.
-Competitions on hanab.live are often played with the following house rule as a result:
-
-Hence, the following rule is often used.
+So the Hanabi competitions are often played with the following house rule:
 
 > In the instant before someone plays a card, they enter a P state,
 > which they do not exit until they take a non-play action.
@@ -21,10 +19,10 @@ Hence, the following rule is often used.
 This is designed to prevent hat-guessing,
 which has a signature of consecutive blind plays from arbitrary slots,
 while minimally impacting other types of conventions.
-In particular, hidden or layered finesses are not hatlike.
+In particular, hidden or layered finesses do not cause hatlike plays.
 
 The following [Hyphen-ated conventions](https://hanabi.github.io)
-should mostly be okay, but maybe there will be
+should mostly be okay, but there may be
 situations where they occur subsequently to each other:
 
 * Elimination blind plays
