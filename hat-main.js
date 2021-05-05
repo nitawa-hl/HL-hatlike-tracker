@@ -179,7 +179,7 @@ function hat_main(new_activity) {
       let hand = window.globals.elements.playerHands[playerIndex].children;
       for (var i=0; i<hand.length; i++) {
         let hatlike = S[player].HLslots.includes(i+1);
-        let card = hand[hand.length - 1 - i]._card;
+        let card = hand[hand.length - 1 - i].card;
         if (!card.hat) {
           card.hat = new Konva.Text({
             x:10,
@@ -189,6 +189,24 @@ function hat_main(new_activity) {
             visible: false}
           );
           card.add(card.hat);
+          card.parent.checkMisplay = (function() {
+            const old_function = card.parent.checkMisplay;
+            return function() {
+              let ret = old_function.apply(this, arguments);
+              if (ret) {
+                return true;
+              }
+              else if (globals.options.speedrun) {
+                return true;
+              }
+              else if (this.card.hat.isVisible() && this.card.hat.getText() === hat_text_danger) {
+                let text = "Are you sure you want to play this?\n";
+                text += "This breaks the house rule on hatlike plays.";
+                return !window.confirm(text);
+              }
+              return false;
+            }
+          })();
         }
         if (hatlike) {
           card.hat.text(Q ? hat_text_danger : hat_text_normal);
