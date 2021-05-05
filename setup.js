@@ -3,7 +3,7 @@ function setupSocketWatch() {
     window.globals2.conn.ws.onmessage = (function() {
       var old_function = window.globals2.conn.ws.onmessage;
       return function(event) {
-        old_function(event);
+        old_function.apply(this, arguments);
         if (event.data.startsWith('clock')) {
           // going to delay a few ms because I am worried about
           // possible race condition against computing new state
