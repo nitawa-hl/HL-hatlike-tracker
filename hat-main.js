@@ -1,5 +1,9 @@
 var turn_sound_last_played = -1;
+
 function hat_main(new_activity) {
+  const hat_text_normal = "👒";
+  const hat_text_danger = "🚨";
+
   try {
     var is_active = !window.globals.state.finished;
     var Players = Array.from(window.globals.metadata.playerNames);
@@ -180,13 +184,14 @@ function hat_main(new_activity) {
           card.hat = new Konva.Text({
             x:10,
             y:card.height()+5,
-            text:"👒",
+            text:hat_text_normal,
             fontSize: 30,
             visible: false}
           );
           card.add(card.hat);
         }
-        if (hatlike && !card.hat.isVisible()) {
+        if (hatlike) {
+          card.hat.text(Q ? hat_text_danger : hat_text_normal);
           card.hat.show();
           card.parent.getLayer().draw();
         }
