@@ -46,6 +46,9 @@ so you don't have to keep track of it.
 * If you click on the hat icon, it shows which slots would cause a hatlike play.
 * While playing, an air horn sounds if a player makes a hatlike move.
 * The extension also draws a small hat under each hatlike slot.
+* The hats turn into sirens if blindplaying that slot is forbidden under the rule.
+* The extension will also warn you before playing a card that violates the rule
+  (much like it warns you when you are about to play a known unplayable card).
 
 ## How do I use it?
 
