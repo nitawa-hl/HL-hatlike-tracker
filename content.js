@@ -23,6 +23,13 @@ function gotMessage(message, sender, sendResponse) {
 
 run_script('setup.js');
 
+document.onkeydown = function() {
+  run_script('run-once.js');
+}
+document.onclick = function(e) {
+  run_script('run-once.js');
+}
+
 window.addEventListener("message", (event) => {
   if (event.source != window)
     return;

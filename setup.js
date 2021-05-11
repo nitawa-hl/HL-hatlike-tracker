@@ -22,15 +22,4 @@ function setupSocketWatch() {
   }
 }
 
-function setupStateWatch() {
-  if (window.globals && window.globals.store) {
-    window.globals.store.subscribe(function() {
-      hat_main();
-    });
-  } else {
-    window.setTimeout(setupStateWatch, 100);
-  }
-}
-
 setupSocketWatch();
-setupStateWatch();
