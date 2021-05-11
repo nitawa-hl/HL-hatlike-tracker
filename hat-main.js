@@ -18,7 +18,7 @@ function hat_main(new_activity) {
     }
   }
   catch (TypeError) {
-    console.warn("Still waiting on a play");
+    // Still waiting on a play
     return;
   }
 
