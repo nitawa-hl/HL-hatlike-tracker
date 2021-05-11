@@ -24,7 +24,10 @@ function gotMessage(message, sender, sendResponse) {
 run_script('setup.js');
 
 document.onkeydown = function() {
-  run_script('run-once.js');
+  // small time delay of 20ms to avoid race condition
+  window.setTimeout(function() {
+    run_script('run-once.js');
+  }, 20);
 }
 document.onclick = function(e) {
   run_script('run-once.js');
