@@ -23,11 +23,15 @@ function gotMessage(message, sender, sendResponse) {
 
 run_script('setup.js');
 
-document.onkeydown = function() {
+// enter space home end, arrow keys, [ ]
+const keycodes = [13, 32, 35, 36, 37, 38, 39, 40, 32, 219, 221];
+document.onkeydown = function(e) {
   // small time delay of 20ms to avoid race condition
-  window.setTimeout(function() {
-    run_script('run-once.js');
-  }, 20);
+  if (keycodes.includes(e.keyCode)) {
+    window.setTimeout(function() {
+      run_script('run-once.js');
+    }, 20);
+  }
 }
 document.onclick = function(e) {
   run_script('run-once.js');
