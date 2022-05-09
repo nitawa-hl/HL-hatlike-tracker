@@ -1,5 +1,4 @@
-This is a fork of [nitawa](https://github.com/nitawa-hl)'s
-hatlike tracker for [hanabi competitions](https://hanabi-competitions.com).
+This is a hatlike tracker for [hanabi competitions](https://hanabi-competitions.com).
 
 ## What are hatlike plays?
 
