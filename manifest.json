@@ -5,7 +5,8 @@
     "content_scripts": [
     {
         "matches": [
-            "https://hanab.live/*"
+            "https://hanab.live/*",
+            "http://localhost:8008/*"
         ],
         "js": ["content.js"]
     }
@@ -23,5 +24,10 @@
         "https://hanab.live/*",
         "webNavigation"
     ],
-    "web_accessible_resources": ["script.js"]
+    "web_accessible_resources": [
+      "setup.js",
+      "hat-main.js",
+      "run-once.js",
+      "alert.mp3"
+    ]
 }
