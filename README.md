@@ -5,7 +5,7 @@ This is a hatlike tracker for [hanabi competitions](https://hanabi-competitions.
 In games with four or more players, there are so-called
 [hat-guessing strategies](https://github.com/hanabi/hanabi.github.io/blob/main/misc/hat-guessing.md)
 which are considered game-breaking.
-So the Hanabi competitions are often played with the following house rule:
+So the 4p Hanabi competitions have sometimes been played with the following house rule:
 
 > In the instant before someone plays a card, they enter a P state,
 > which they do not exit until they take a non-play action.
@@ -20,7 +20,7 @@ which has a signature of consecutive blind plays from arbitrary slots,
 while minimally impacting other types of conventions.
 In particular, hidden or layered finesses do not cause hatlike plays.
 
-The following [Hyphen-ated conventions](https://hanabi.github.io)
+The following [H-group conventions](https://hanabi.github.io)
 should mostly be okay, but there may be
 situations where they occur subsequently to each other:
 
@@ -55,9 +55,9 @@ so you don't have to keep track of it.
 
 ## Credits and notes
 
-Thanks to nitawa for [implementing most of this](https://discord.com/channels/140016142600241152/712422871044980848/837774900169015428)!
+Thanks to vEnhance for his improvements, at this point most code is his!
 
-Thanks to the hyphen-ated group for running [hanab.live](https://hanab.live)
-and the running the hanabi competitions.
+Thanks to the H-group for running [hanab.live](https://hanab.live).
+Thanks to both the H-group and [Hanabi Central](https://discord.gg/BQKYDWRq) for running the hanabi competitions
 
-The code I introduced is terrible. Bugfixes and pull requests welcome.
+It is all terrible code though. Bugfixes and pull requests welcome.
